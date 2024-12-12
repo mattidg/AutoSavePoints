@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VTOLAPI</name>
+    </assembly>
+    <members>
+        <member name="F:VTOLAPI.VTAPI.SceneLoaded">
+            <summary>
+            This gets invoked when the scene has changed and finished loading. 
+            This should be the safest way to start running code when a level is loaded.
+            </summary>
+        </member>
+        <member name="F:VTOLAPI.VTAPI.MissionReloaded">
+            <summary>
+            This gets invoked when the mission as been reloaded by the player.
+            </summary>
+        </member>
+        <member name="P:VTOLAPI.VTAPI.currentScene">
+            <summary>
+            The current scene which is active.
+            </summary>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.GetPlayersVehicleGameObject">
+            <summary>
+            [MP Supported]
+            Searches for the game object of the player by using the flight scene manager.
+            For multiplayer it uses the lobby manager to get the local player
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.GetPlayersVehicleEnum">
+            <summary>
+            Returns which vehicle the player is using in an Enum.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.GetChildWithName(UnityEngine.GameObject,System.String)">
+            <summary>
+            Searches the GameObject for a certain child.
+            Useful for if you just want a GameObject within a large hierarchy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.FindInteractable(System.String)">
+            <summary>
+            Searches the GameObject for a certain interactable by the name of the interactable.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.FindInteractable(UnityEngine.GameObject,System.String)">
+            <summary>
+            Searches the GameObject for a certain interactable by the name of the interactable.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.RegisterVariable(System.String,VTOLAPI.VTModVariable)">
+            <summary>
+            Registers a variable that other mods can access to modify your variables.
+            </summary>
+            <param name="modId">Mod ID must be specific to your mod.</param>
+            <param name="modVariable">Class that contains the actions to modify the variable.</param>
+            <code>
+            string epicString = "C-137 Is soooo coool, i love his A-10 mod :~)";
+            VTModVariable modVariable = new VTModVariable("Epic Float", epicString, OnSetValue, OnGetValue);
+             
+            VTAPI.RegisterVariable("Danku-UniqueModID", modVariable);
+             
+            void OnSetValue(object value) {
+                epicString = (string)value; // Value is type checked.
+            }
+            void OnGetValue(ref object value) {
+                value = epicString;
+            }
+            </code>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.UnregisterVariable(System.String,System.String)">
+            <summary>
+            Unregisters a variable for the mod.
+            </summary>
+            <param name="modId">Mod ID must be specific to your mod.</param>
+            <param name="variableName">Name of the variable to unregister, must be the same as the one you registered.</param>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.UnregisterMod(System.String)">
+            <summary>
+            Unregisters your mod so that nothing can access its variables anymore.
+            </summary>
+            <param name="modId">Mod ID must be specific to your mod.</param>
+        </member>
+        <member name="M:VTOLAPI.VTAPI.TryGetModVariables(System.String,VTOLAPI.VTModVariables@)">
+            <param name="modId">Mod ID must be specific to your mod.</param>
+            <param name="modVariables">Class that contains all the variables for the modId.</param>
+            <returns>True if the modId is registered</returns>
+            <code>
+            VTModVariables modVariables;
+            if (TryGetModVariables("Danku-UniqueModID", out modVariables))
+            {
+                if (modVariables.TryGetValue("Epic String", out var epicString))
+                {
+                    Debug.Log($"Got EPIC string '{epicString}'");
+                }
+            }
+            </code>
+        </member>
+        <member name="M:VTOLAPI.VTModVariable.#ctor(System.String,System.Object,System.Action{System.Object},VTOLAPI.VTModVariable.ActionRef{System.Object},VTOLAPI.VTModVariable.VariableAccess)">
+            <param name="variableName">Unique name of the variable, used as a key.</param>
+            <param name="initialValue">Initial value, must be the same type as the variable.</param>
+            <param name="onSetValue">Action invoked when another mod wants to set your variable, set your value to the parameter.</param>
+            <param name="onGetValue">Action invoked when another mod wants your value, set the parameter to your value.</param>
+            <param name="variableAccess">Determines what other mods can do with your variable.</param>
+            <code>
+            float epicFloat = 420.69f;
+            VTModVariable modVariable = new VTModVariable("Epic Float Variable", epicFloat, SetValue, GetValue);
+             
+            void SetValue(object value) {
+                epicFloat = (float)value; // Value is type checked.
+            }
+            void GetValue(ref object value) {
+                value = epicFloat;
+            }
+            </code>
+        </member>
+        <member name="M:VTOLAPI.VTModVariable.#ctor(System.String,System.Action)">
+            <summary>
+            Action based variablen't, can be used to allow other mods to invoke events in yours.
+            </summary>
+            <param name="variableName">Unique name of the variablen't, used as a key.</param>
+            <param name="onInvoke">Action invoked when another mod wants you to do something.</param>
+            <code>
+            OnShoot = new Action(Shoot);
+            VTModVariable modVariable = new VTModVariable("OnShoot", OnShoot);
+             
+            void Shoot() {
+                // Shoots :~)
+            }
+            </code>
+        </member>
+        <member name="F:VTOLAPI.VTModVariables._modVariables">
+            <param name="Key">Variable Name</param>
+            <param name="Value">VTModVariable</param>
+        </member>
+        <member name="M:VTOLAPI.VTModVariables.TryGetValue(System.String,System.Object@)">
+            <param name="variableName">Unique name of the variable to get, used as a key.</param>
+            <param name="value">THE value.</param>
+            <returns>True if variable is accessible, not an action, and value isn't null.</returns>
+        </member>
+        <member name="M:VTOLAPI.VTModVariables.TrySetValue(System.String,System.Object)">
+            <param name="variableName">Unique name of the variable to set, used as a key.</param>
+            <param name="value">THE value.</param>
+            <returns>True if variable is accessible, not an action, and value is the same type.</returns>
+        </member>
+        <member name="M:VTOLAPI.VTModVariables.Invoke(System.String)">
+            <summary>
+            Invokes an action used by the target mod to do something.
+            </summary>
+            <param name="variableName">Unique name of the variable to invoke, used as a key.</param>
+        </member>
+        <member name="T:VTOLVehicles">
+            <summary>
+            Enum of the different vehicles in the game.
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.None">
+            <summary>
+            None means the pilot hasn't selected a vehicle yet
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.AV42C">
+            <summary>
+            The A/V-42C 
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.FA26B">
+            <summary>
+            The F/A-26B
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.F45A">
+            <summary>
+            The F-45A
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.AH94">
+            <summary>
+            The AH-94
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.T55">
+            <summary>
+            The T-55
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.EF24G">
+            <summary>
+            The EF-24G
+            </summary>
+        </member>
+        <member name="F:VTOLVehicles.Custom">
+            <summary>
+            A Custom Aircraft
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "otYYshv9o2QMIeZbaAw5QShbyi0vf00Zl5FDkY8uj8OxCYXadjArn4pG/H6sa5hVspJsh9iN5eoAG+4Wvfo/Iw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\AutoSavePoints.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Matthew\\.nuget\\packages\\bepinex.assemblypublicizer.msbuild\\0.4.2\\bepinex.assemblypublicizer.msbuild.0.4.2.nupkg.sha512"
+  ],
+  "logs": []
+}

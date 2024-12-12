@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://gitlab.com/vtolvr-mods/ModLoader/-/raw/release/schema.json",
+  "Title": "Auto Save Points",
+  "Description": "Auto saves based on time or missions completed",
+  "PreviewImageUrl": "https://raw.githubusercontent.com/mattidg/VTOLVR-Auto-Save-Points/refs/heads/main/Auto%20Save%20Points%20ZIPable%20Items/Preview.png",
+  "MetaData": {
+    "DllName": "AutoSavePoints.dll",
+    "AllowLoadOnStart": true,
+    "ShowOnMainList": true,
+    "DllHash": ""
+  }
+  "DependenciesIds": [
+    3265689427
+  ]
+}

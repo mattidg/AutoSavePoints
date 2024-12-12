@@ -1,0 +1,17 @@
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AutoSavePoints.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AutoSavePoints.pdb
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AsmResolver.DotNet.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AsmResolver.PE.File.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AsmResolver.PE.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\AsmResolver.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\BepInEx.AssemblyPublicizer.MSBuild.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\BepInEx.AssemblyPublicizer.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\VTOLAPI.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\bin\Release\net472\VTOLAPI.xml
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.AssemblyReference.cache
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.IgnoresAccessChecksTo.cs
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.CoreCompileInputs.cache
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.CopyComplete
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.dll
+C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.pdb
