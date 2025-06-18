@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\AutoSavePoints.csproj": {}
+    "D:\\Code\\AutoSavePoints\\AutoSavePoints.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\AutoSavePoints.csproj": {
+    "D:\\Code\\AutoSavePoints\\AutoSavePoints.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\AutoSavePoints.csproj",
+        "projectUniqueName": "D:\\Code\\AutoSavePoints\\AutoSavePoints.csproj",
         "projectName": "AutoSavePoints",
-        "projectPath": "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\AutoSavePoints.csproj",
+        "projectPath": "D:\\Code\\AutoSavePoints\\AutoSavePoints.csproj",
         "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Matthew\\Documents\\VTOL VR Mods\\AutoSavePoints\\obj\\",
+        "outputPath": "D:\\Code\\AutoSavePoints\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net472": {
@@ -45,9 +55,13 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[0.4.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.6, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

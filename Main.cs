@@ -1,10 +1,12 @@
 ﻿global using static AutoSavePoints.Logger;
 using ModLoader.Framework;
 using ModLoader.Framework.Attributes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using VTOLAPI;
 
 /*
@@ -16,12 +18,13 @@ using VTOLAPI;
  * Hamrony patching, real waste of time there.
  * 
  * End Goal:
- * Once setttings become real again (I can steal more code) I can add that back.
+ * Once settings become real again (I can steal more code) I can add that back.
  * 
  * Future Plans:
  * None.
  * 
  * Changelog:
+ * 06/18/2025: Added a settings file for User Settings.
  * 12/11/2024: Ported the old mod to VTOL VR Mod Loader Steam Edition™ and removed user settings.
  */
 
@@ -30,6 +33,11 @@ namespace AutoSavePoints
     [ItemId("Mattidg.AutoSavePoints")]
     public class Main : VtolMod
     {
+        //User Variables
+        private bool showSaveWarning = false;
+        private int autoSaveTime = 300;
+        private int autoSaveMissions = 2;
+
         private int missionsCompletedAmount;
         public string ModFolder;
 
@@ -42,12 +50,56 @@ namespace AutoSavePoints
             ModFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Log($"Awake at {ModFolder}");
 
+            var settings = LoadSettings();
+
+            // Validate settings
+            if (settings.autoSaveTime <= 0)
+            {
+                Log("Invalid autoSaveTime in settings. Resetting to default (300).");
+                settings.autoSaveTime = 300;
+            }
+            if (settings.autoSaveMissions <= 0)
+            {
+                Log("Invalid autoSaveMissions in settings. Resetting to default (2).");
+                settings.autoSaveMissions = 2;
+            }
+
+            showSaveWarning = settings.showSaveWarning;
+            autoSaveTime = settings.autoSaveTime;
+            autoSaveMissions = settings.autoSaveMissions;
+
             VTAPI.SceneLoaded += SceneLoaded;
+        }
+
+        private AutoSavePointsSettings LoadSettings()
+        {
+            string settingsPath = Path.Combine(ModFolder, "AutoSavePointsSettings.json");
+
+            try
+            {
+                if (!File.Exists(settingsPath))
+                {
+                    var defaultSettings = new AutoSavePointsSettings();
+                    File.WriteAllText(settingsPath, System.Text.Json.JsonSerializer.Serialize(defaultSettings, new JsonSerializerOptions { WriteIndented = true }));
+                    Log("Default settings file created.");
+                    return defaultSettings;
+                }
+
+                string json = File.ReadAllText(settingsPath);
+                return System.Text.Json.JsonSerializer.Deserialize<AutoSavePointsSettings>(json) ?? new AutoSavePointsSettings();
+            }
+            catch (Exception ex)
+            {
+                Log($"Failed to load settings: {ex.Message}");
+                return new AutoSavePointsSettings();
+            }
         }
 
         private void AddMissions()
         {
-            missionsList = new List<MissionObjective>(VTAPI.FindObjectsOfType<MissionObjective>());
+            missionsList.Clear();
+            missionsList.AddRange(VTAPI.FindObjectsOfType<MissionObjective>());
+
             SetListeners();
         }
 
@@ -63,33 +115,37 @@ namespace AutoSavePoints
                     addedListeners.Add(objective);
                 }
             }
-
-            missionsListUnique.Clear();
-            missionsList.Clear();
         }
 
         private void MissionAutoSave()
         {
             missionsCompletedAmount++;
 
-            if (missionsCompletedAmount == 0)
+            if (missionsCompletedAmount % autoSaveMissions == 0)
             {
-                Log("LMAOXD you can't divide by 0 dawg.");
-            }
-            else if (missionsCompletedAmount % 2 == 0)
-            {
-                QuicksaveManager quickSaveInstance;
-                quickSaveInstance = QuicksaveManager.instance;
-                quickSaveInstance.Quicksave();
+                QuicksaveManager.instance.Quicksave();
                 missionsCompletedAmount = 0;
+            }
+
+            if (showSaveWarning)
+            {
+                TutorialLabel.instance.DisplayLabel($"AutoSavePoints Mission: Auto-saved after {autoSaveMissions} missions completed", null, 7);
             }
         }
 
         private void TimeAutoSave()
         {
-            QuicksaveManager quickSaveInstance;
-            quickSaveInstance = QuicksaveManager.instance;
-            quickSaveInstance.Quicksave();
+            if (QuicksaveManager.instance != null)
+            {
+                QuicksaveManager.instance.Quicksave();
+            }
+
+            if (showSaveWarning)
+            {
+                var minutes = autoSaveTime / 60;
+                var minuteLabel = minutes == 1 ? "minute" : "minutes";
+                TutorialLabel.instance.DisplayLabel($"AutoSavePoints Time: Auto-saved after {minutes} {minuteLabel}", null, 7);
+            }
         }
 
         private void SceneLoaded(VTScenes scene)
@@ -100,7 +156,7 @@ namespace AutoSavePoints
 
             InvokeRepeating("AddMissions", 60, 30);
 
-            InvokeRepeating("TimeAutoSave", 60, 300);
+            InvokeRepeating("TimeAutoSave", 60, autoSaveTime);
 
             missionsCompletedAmount = 0;
 
@@ -109,7 +165,14 @@ namespace AutoSavePoints
 
         public override void UnLoad()
         {
-            // Destroy any objects
+            VTAPI.SceneLoaded -= SceneLoaded;
+
+            CancelInvoke("AddMissions");
+            CancelInvoke("TimeAutoSave");
+
+            missionsList.Clear();
+            missionsListUnique.Clear();
+            addedListeners.Clear();
         }
     }
 }
