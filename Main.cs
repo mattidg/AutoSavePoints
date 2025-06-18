@@ -53,11 +53,6 @@ namespace AutoSavePoints
             var settings = LoadSettings();
 
             // Validate settings
-            if (settings.showSaveWarning != true || settings.showSaveWarning != false)
-            {
-                Log("Invalid showSaveWarning in settings. Resetting to default (false).");
-                settings.showSaveWarning = false;
-            }
             if (settings.autoSaveTime <= 0)
             {
                 Log("Invalid autoSaveTime in settings. Resetting to default (300).");
