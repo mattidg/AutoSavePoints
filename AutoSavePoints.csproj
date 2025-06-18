@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
@@ -74,6 +74,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="9.0.6" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)item.json&quot; &quot;I:\SteamLibrary\steamapps\common\VTOL VR\@Mod Loader\Mods\AutoSavePoints\&quot; /i /y&#xA;xcopy &quot;$(TargetPath)&quot; &quot;I:\SteamLibrary\steamapps\common\VTOL VR\@Mod Loader\Mods\AutoSavePoints\&quot; /i /y&#xA;xcopy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;I:\SteamLibrary\steamapps\common\VTOL VR\@Mod Loader\Mods\AutoSavePoints\&quot; /i /y" />

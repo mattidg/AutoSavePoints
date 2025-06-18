@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using Valve.Newtonsoft.Json;
 using VTOLAPI;
 
 /*
@@ -52,6 +51,24 @@ namespace AutoSavePoints
             Log($"Awake at {ModFolder}");
 
             var settings = LoadSettings();
+
+            // Validate settings
+            if (settings.showSaveWarning != true || settings.showSaveWarning != false)
+            {
+                Log("Invalid showSaveWarning in settings. Resetting to default (false).");
+                settings.showSaveWarning = false;
+            }
+            if (settings.autoSaveTime <= 0)
+            {
+                Log("Invalid autoSaveTime in settings. Resetting to default (300).");
+                settings.autoSaveTime = 300;
+            }
+            if (settings.autoSaveMissions <= 0)
+            {
+                Log("Invalid autoSaveMissions in settings. Resetting to default (2).");
+                settings.autoSaveMissions = 2;
+            }
+
             showSaveWarning = settings.showSaveWarning;
             autoSaveTime = settings.autoSaveTime;
             autoSaveMissions = settings.autoSaveMissions;
@@ -68,13 +85,13 @@ namespace AutoSavePoints
                 if (!File.Exists(settingsPath))
                 {
                     var defaultSettings = new AutoSavePointsSettings();
-                    File.WriteAllText(settingsPath, JsonSerializer.Serialize(defaultSettings, new JsonSerializerOptions { WriteIndented = true }));
+                    File.WriteAllText(settingsPath, System.Text.Json.JsonSerializer.Serialize(defaultSettings, new JsonSerializerOptions { WriteIndented = true }));
                     Log("Default settings file created.");
                     return defaultSettings;
                 }
 
                 string json = File.ReadAllText(settingsPath);
-                return JsonSerializer.Deserialize<AutoSavePointsSettings>(json) ?? new AutoSavePointsSettings();
+                return System.Text.Json.JsonSerializer.Deserialize<AutoSavePointsSettings>(json) ?? new AutoSavePointsSettings();
             }
             catch (Exception ex)
             {
@@ -109,29 +126,33 @@ namespace AutoSavePoints
         {
             missionsCompletedAmount++;
 
-            if (missionsCompletedAmount == 0)
+            if (missionsCompletedAmount % autoSaveMissions == 0)
             {
-                Log("LMAOXD you can't divide by 0 dawg.");
-            }
-            else if (missionsCompletedAmount % autoSaveMissions == 0)
-            {
-                QuicksaveManager.instance.Quicksave();
+                if (QuicksaveManager.instance != null)
+                {
+                    QuicksaveManager.instance.Quicksave();
+                }
                 missionsCompletedAmount = 0;
             }
 
             if (showSaveWarning)
             {
-                TutorialLabel.instance.DisplayLabel(FlightSceneManager.instance.playerActor.designation.ToString() + "AutoSavePoints Mission: Auto-saved after " + autoSaveMissions + " missions completed", null, 7);
+                TutorialLabel.instance.DisplayLabel($"AutoSavePoints Mission: Auto-saved after {autoSaveMissions} missions completed", null, 7);
             }
         }
 
         private void TimeAutoSave()
         {
-            QuicksaveManager.instance.Quicksave();
+            if (QuicksaveManager.instance != null)
+            {
+                QuicksaveManager.instance.Quicksave();
+            }
 
             if (showSaveWarning)
             {
-                TutorialLabel.instance.DisplayLabel(FlightSceneManager.instance.playerActor.designation.ToString() + "AutoSavePoints: Auto-saved after " + autoSaveTime / 60 + " minutes", null, 7);
+                var minutes = autoSaveTime / 60;
+                var minuteLabel = minutes == 1 ? "minute" : "minutes";
+                TutorialLabel.instance.DisplayLabel($"AutoSavePoints Time: Auto-saved after {minutes} {minuteLabel}", null, 7);
             }
         }
 
@@ -152,7 +173,14 @@ namespace AutoSavePoints
 
         public override void UnLoad()
         {
-            // Destroy any objects
+            VTAPI.SceneLoaded -= SceneLoaded;
+
+            CancelInvoke("AddMissions");
+            CancelInvoke("TimeAutoSave");
+
+            missionsList.Clear();
+            missionsListUnique.Clear();
+            addedListeners.Clear();
         }
     }
 }

@@ -12,8 +12,8 @@ namespace AutoSavePoints
 {
     public class AutoSavePointsSettings
     {
-        public bool showSaveWarning = false;
-        public int autoSaveTime = 300;        // Seconds
-        public int autoSaveMissions = 2;      // Missions before autosave
+        public bool showSaveWarning { get; set; } = false;
+        public int autoSaveTime { get; set; } = 300;        // Seconds
+        public int autoSaveMissions { get; set; } = 2;      // Missions before autosave
     }
 }
