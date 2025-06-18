@@ -123,10 +123,7 @@ namespace AutoSavePoints
 
             if (missionsCompletedAmount % autoSaveMissions == 0)
             {
-                if (QuicksaveManager.instance != null)
-                {
-                    QuicksaveManager.instance.Quicksave();
-                }
+                QuicksaveManager.instance.Quicksave();
                 missionsCompletedAmount = 0;
             }
 

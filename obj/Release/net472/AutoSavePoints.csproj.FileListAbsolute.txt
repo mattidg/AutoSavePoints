@@ -15,3 +15,31 @@ C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSa
 C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.CopyComplete
 C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.dll
 C:\Users\Matthew\Documents\VTOL VR Mods\AutoSavePoints\obj\Release\net472\AutoSavePoints.pdb
+D:\Code\AutoSavePoints\bin\Release\net472\AutoSavePoints.dll
+D:\Code\AutoSavePoints\bin\Release\net472\AutoSavePoints.pdb
+D:\Code\AutoSavePoints\bin\Release\net472\AsmResolver.DotNet.dll
+D:\Code\AutoSavePoints\bin\Release\net472\AsmResolver.PE.File.dll
+D:\Code\AutoSavePoints\bin\Release\net472\AsmResolver.PE.dll
+D:\Code\AutoSavePoints\bin\Release\net472\AsmResolver.dll
+D:\Code\AutoSavePoints\bin\Release\net472\BepInEx.AssemblyPublicizer.MSBuild.dll
+D:\Code\AutoSavePoints\bin\Release\net472\BepInEx.AssemblyPublicizer.dll
+D:\Code\AutoSavePoints\bin\Release\net472\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Buffers.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.IO.Pipelines.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Memory.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Numerics.Vectors.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Runtime.CompilerServices.Unsafe.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Text.Encodings.Web.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Text.Json.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.Threading.Tasks.Extensions.dll
+D:\Code\AutoSavePoints\bin\Release\net472\System.ValueTuple.dll
+D:\Code\AutoSavePoints\bin\Release\net472\VTOLAPI.dll
+D:\Code\AutoSavePoints\bin\Release\net472\VTOLAPI.xml
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.AssemblyReference.cache
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.IgnoresAccessChecksTo.cs
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.csproj.CoreCompileInputs.cache
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.sourcelink.json
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSave.F1C9219C.Up2Date
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.dll
+D:\Code\AutoSavePoints\obj\Release\net472\AutoSavePoints.pdb
